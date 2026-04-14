@@ -3,20 +3,27 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client(process.env.CLIENT_ID)
-
 const Groq = require('groq-sdk');
-const groq = new Groq({apiKey:process.env.GROQ_API})
 
-const DB_HOST=process.env.DB_HOST
-const DB_USER=process.env.DB_USER
-const DB_PASSWORD=process.env.DB_PASSWORD
-const DB_NAME=process.env.DB_NAME
+const CLIENT_ID = process.env.CLIENT_ID;
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://the-rizzler-one.vercel.app';
+
+if (!CLIENT_ID) {
+  console.error('Missing CLIENT_ID environment variable');
+}
+
+const client = new OAuth2Client(CLIENT_ID);
+const groq = new Groq({ apiKey: process.env.GROQ_API });
+
+const DB_HOST = process.env.DB_HOST;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
 
 const app = express();
 
 app.use(express.json());
-app.use(cors({origin:"https://the-rizzler-one.vercel.app/"}));
+app.use(cors({ origin: FRONTEND_URL }));
 
 const db = mysql.createConnection({
     database:DB_NAME,
@@ -43,8 +50,8 @@ app.post('/auth/login', async (req,res)=>{
     const token = req.body.token;
 
     const response = await client.verifyIdToken({
-        idToken:token,
-        audience:process.env.client_id
+        idToken: token,
+        audience: CLIENT_ID
     })
 
     const {name,email} = response.getPayload();
