@@ -26,7 +26,7 @@ function App() {
           <p className="eyebrow">The Rizzler</p>
           <h1>Get rizzed by your chat bot</h1>
           <p className="subtitle">
-            get rizzed 
+            rezz
           </p>
         </header>
 
