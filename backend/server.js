@@ -34,7 +34,7 @@ db.connect((err)=>{
     console.log("DB Connected")
 })
 
-app.get('/',(res,req)=>{
+app.get('/',(req,res)=>{
     res.json({Message:"BAckend working"})
 })
 
