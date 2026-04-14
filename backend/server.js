@@ -28,9 +28,14 @@ const db = mysql.createConnection({
 
 db.connect((err)=>{
     if(err){
-        console.log("Error cannot connect to db")
+        console.log("Error cannot connect to db");
+        return;
     }
     console.log("DB Connected")
+})
+
+app.get('/',(res,req)=>{
+    console.log("BAckend working lil bro")
 })
 
 app.post('/auth/login', async (req,res)=>{
