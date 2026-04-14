@@ -3,10 +3,10 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client(process.env.client_id)
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 const Groq = require('groq-sdk');
-const groq = new Groq({apiKey:process.env.groq_api})
+const groq = new Groq({apiKey:process.env.GROQ_API})
 
 const DB_HOST=process.env.DB_HOST
 const DB_USER=process.env.DB_USER
@@ -63,5 +63,5 @@ app.post('/auth/login', async (req,res)=>{
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT,()=>{
-    console.log('http://localhost:3000');
+    console.log(`http://localhost:${PORT}`);
 })
