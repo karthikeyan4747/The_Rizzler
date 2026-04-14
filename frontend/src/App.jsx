@@ -39,7 +39,7 @@ function App() {
               onError={() => console.error('Login failed')}
             />
           </div>
-          <p className="login-note">Fast, secure Google login with a touch of Rizzler magic.</p>
+          <p className="login-note">rozz</p>
         </div>
       </div>
     </main>
