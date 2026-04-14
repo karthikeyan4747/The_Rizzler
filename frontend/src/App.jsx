@@ -4,6 +4,7 @@ import axios from 'axios'
 
 function App() {
   const api = import.meta.env.VITE_API
+  console.log(api)
   return (
     <main className="app-shell">
       <div className="login-card">
@@ -21,6 +22,7 @@ function App() {
             alt="Rizzler character"
           />
         </div>
+        
 
         <header className="login-header">
           <p className="eyebrow">The Rizzler</p>
