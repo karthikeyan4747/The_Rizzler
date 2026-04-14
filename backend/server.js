@@ -1,0 +1,58 @@
+require('dotenv').config()
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.client_id)
+
+const Groq = require('groq-sdk');
+const groq = new Groq({apiKey:process.env.groq_api})
+
+
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+const db = mysql.createConnection({
+    database:'rizzler',
+    host:'localhost',
+    user:'root',
+    password:'030504'
+})
+
+
+db.connect((err)=>{
+    if(err){
+        console.log("Error cannot connect to db")
+    }
+    console.log("DB Connected")
+})
+
+app.post('/auth/login', async (req,res)=>{
+    try{
+    const token = req.body.token;
+
+    const response = await client.verifyIdToken({
+        idToken:token,
+        audience:process.env.client_id
+    })
+
+    const {name,email} = response.getPayload();
+
+    db.query('select * from users where email=?',[email],(err,result)=>{
+        if (err) throw err;
+        if(result.length === 0){
+            db.query('insert into users(name,email) values(?,?)',[name,email])
+        }
+        res.json({name,email})
+    })
+    } catch (err) {
+        return res.status(401).json({Message:'errer'})
+    }
+})
+
+
+app.listen(3000,()=>{
+    console.log('http://localhost:3000');
+})
