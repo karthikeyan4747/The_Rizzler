@@ -16,7 +16,7 @@ const DB_NAME=process.env.DB_NAME
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin:"https://the-rizzler-one.vercel.app/"}));
 
 const db = mysql.createConnection({
     database:DB_NAME,

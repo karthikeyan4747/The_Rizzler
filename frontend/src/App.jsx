@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 
 function App() {
+  const api = import.meta.env.VITE_API
   return (
     <main className="app-shell">
       <div className="login-card">
@@ -33,7 +34,7 @@ function App() {
           <div className="google-login-button">
             <GoogleLogin shape='pill'
               onSuccess={(response) => {
-                axios.post('http://localhost:3000/auth/login', { token: response.credential })
+                axios.post(`${api}/auth/login`, { token: response.credential })
               }}
               onError={() => console.error('Login failed')}
             />
