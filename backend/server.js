@@ -8,6 +8,10 @@ const client = new OAuth2Client(process.env.client_id)
 const Groq = require('groq-sdk');
 const groq = new Groq({apiKey:process.env.groq_api})
 
+const DB_HOST=process.env.DB_HOST
+const DB_USER=process.env.DB_USER
+const DB_PASSWORD=process.env.DB_PASSWORD
+const DB_NAME=process.env.DB_NAME
 
 const app = express();
 
@@ -15,10 +19,10 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    database:'rizzler',
-    host:'localhost',
-    user:'root',
-    password:'030504'
+    database:DB_NAME,
+    host:DB_HOST,
+    user:DB_USER,
+    password:DB_PASSWORD
 })
 
 
