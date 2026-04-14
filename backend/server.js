@@ -35,7 +35,7 @@ db.connect((err)=>{
 })
 
 app.get('/',(res,req)=>{
-    console.log("BAckend working lil bro")
+    res.json({Message:"BAckend working"})
 })
 
 app.post('/auth/login', async (req,res)=>{
